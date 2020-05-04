@@ -1,3 +1,31 @@
+How to run:
+1>Run kafka from docker here https://docs.confluent.io/current/quickstart/ce-docker-quickstart.html
+
+2>Download kafka from here (needed for console tools)
+
+3>create topic word-count-input and word-count-output
+
+4>run consumer 
+```
+./kafka-console-consumer.sh --bootstrap-server localhost:9092 \
+    --topic word-count-output \
+    --from-beginning \
+    --formatter kafka.tools.DefaultMessageFormatter \
+    --property print.key=true \
+    --property print.value=true \
+    --property key.deserializer=org.apache.kafka.common.serialization.StringDeserializer \
+    --property value.deserializer=org.apache.kafka.common.serialization.LongDeserializer
+```
+
+5>run app from Intellij x number of time
+
+6>use console producer to add message to topic
+```
+./kafka-console-producer.sh --bootstrap-server localhost:9092 --topic word-count-input
+```
+
+Scale 
+
 I have scaleled  up consumer to have 3 threads.
 Input topic using 6 partitions with sub node of 2, so 12 tasks, needed. with 3 threads per consumer.
 
